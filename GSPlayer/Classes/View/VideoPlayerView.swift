@@ -10,6 +10,10 @@ import UIKit
 import AVFoundation
 
 public class VideoPlayerView: UIView {
+
+  deinit {
+    print(#function)
+  }
     
     public enum State {
         
