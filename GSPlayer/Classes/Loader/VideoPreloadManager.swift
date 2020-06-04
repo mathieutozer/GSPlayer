@@ -59,7 +59,7 @@ public class VideoPreloadManager: NSObject {
         isAutoStart = false
     }
     
-    func remove(url: URL) {
+    public func remove(url: URL) {
         if let index = waitingQueue.firstIndex(of: url) {
             waitingQueue.remove(at: index)
         }
