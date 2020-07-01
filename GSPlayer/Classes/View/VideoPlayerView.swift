@@ -33,7 +33,7 @@ public class VideoPlayerView: UIView {
         case error(NSError)
     }
     
-    public enum PausedReason {
+    public enum PausedReason: Int {
         
         /// Pause because the player is not visible, stateDidChanged is not called when the buffer progress changes
         case hidden
@@ -206,6 +206,11 @@ public class VideoPlayerView: UIView {
         player?.play()
     }
     
+    /// Pause video.
+    open func pause() {
+        player?.pause()
+    }
+    
     /// Moves the playback cursor and invokes the specified block when the seek operation has either been completed or been interrupted.
     open func seek(to time: CMTime, completion: ((Bool) -> Void)? = nil) {
         player?.seek(to: time) { completion?($0) }
@@ -241,7 +246,7 @@ public extension VideoPlayerView {
     /// - Parameter reason: Reason for pause
     func pause(reason: PausedReason) {
         pausedReason = reason
-        player?.pause()
+        pause()
     }
 }
 
