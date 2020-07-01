@@ -154,10 +154,9 @@ public class VideoPlayerView: UIView {
         playerLayer.frame = bounds
         CATransaction.commit()
     }
-    
 }
 
-extension VideoPlayerView {
+@objc extension VideoPlayerView {
     
     /// Play a video of the specified url.
     ///
@@ -201,14 +200,6 @@ extension VideoPlayerView {
         observe(playerItem: playerItem)
     }
     
-    /// Pause video.
-    ///
-    /// - Parameter reason: Reason for pause
-    open func pause(reason: PausedReason) {
-        pausedReason = reason
-        player?.pause()
-    }
-    
     /// Continue playing video.
     open func resume() {
         pausedReason = .waitingKeepUp
@@ -241,7 +232,17 @@ extension VideoPlayerView {
     open func removeTimeObserver(_ observer: Any) {
         player?.removeTimeObserver(observer)
     }
+}
+
+public extension VideoPlayerView {
     
+    /// Pause video.
+    ///
+    /// - Parameter reason: Reason for pause
+    func pause(reason: PausedReason) {
+        pausedReason = reason
+        player?.pause()
+    }
 }
 
 private extension VideoPlayerView {
@@ -250,7 +251,6 @@ private extension VideoPlayerView {
         get { return playerLayer.player }
         set { playerLayer.player = newValue }
     }
-    
 }
 
 private extension VideoPlayerView {
