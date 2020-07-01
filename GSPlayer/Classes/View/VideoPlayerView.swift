@@ -60,25 +60,25 @@ public class VideoPlayerView: UIView {
     public private(set) var replayCount: Int = 0
     
     /// Whether the video will be automatically replayed until the end of the video playback.
-    public var isAutoReplay: Bool = true
+    open var isAutoReplay: Bool = true
     
     /// Play to the end time.
-    public var playToEndTime: (() -> Void)?
+    open var playToEndTime: (() -> Void)?
     
     /// Playback status changes, such as from play to pause.
-    public var stateDidChanged: ((State) -> Void)?
+    open var stateDidChanged: ((State) -> Void)?
     
     /// Replay after playing to the end.
-    public var replay: (() -> Void)?
+    open var replay: (() -> Void)?
     
     /// Whether the video is muted, only for this instance.
-    public var isMuted: Bool {
+    open var isMuted: Bool {
         get { return player?.isMuted ?? false }
         set { player?.isMuted = newValue }
     }
     
     /// Video volume, only for this instance.
-    public var volume: Double {
+    open var volume: Double {
         get { return player?.volume.double ?? 0 }
         set { player?.volume = newValue.float }
     }
@@ -125,7 +125,7 @@ public class VideoPlayerView: UIView {
     
     // MARK: - Lifecycle
     
-    public override var contentMode: UIView.ContentMode {
+    open override var contentMode: UIView.ContentMode {
         didSet {
             switch contentMode {
             case .scaleAspectFill:  playerLayer.videoGravity = .resizeAspectFill
@@ -145,7 +145,7 @@ public class VideoPlayerView: UIView {
         configureInit()
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         guard playerLayer.superlayer == layer else { return }
         
