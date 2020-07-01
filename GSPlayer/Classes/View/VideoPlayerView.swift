@@ -48,6 +48,9 @@ public class VideoPlayerView: UIView {
     /// An object that manages a player's visual output.
     public let playerLayer = AVPlayerLayer()
     
+    /// URL currently playing.
+    public private(set) var playerURL: URL?
+    
     /// Get current video status.
     public private(set) var state: State = .none {
         didSet { stateDidChanged(state: state, previous: oldValue) }
@@ -116,7 +119,6 @@ public class VideoPlayerView: UIView {
     private var isLoaded = false
     private var isReplay = false
     
-    private var playerURL: URL?
     private var playerBufferingObservation: NSKeyValueObservation?
     private var playerItemKeepUpObservation: NSKeyValueObservation?
     private var playerItemStatusObservation: NSKeyValueObservation?
