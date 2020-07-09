@@ -66,7 +66,7 @@ public class VideoPlayerView: UIView {
     open var isAutoReplay: Bool = true
     
     /// Play to the end time.
-    open var playToEndTime: (() -> Void)?
+    open var playToEndTime: ((URL) -> Void)?
     
     /// Playback status changes, such as from play to pause.
     open var stateDidChanged: ((State) -> Void)?
@@ -362,8 +362,11 @@ private extension VideoPlayerView {
     }
     
     @objc func playerItemDidReachEnd(notification: Notification) {
-        playToEndTime?()
-        
+
+        if let item = notification.object as? AVPlayerItem, let url = item.url {
+          playToEndTime?(url)
+        }
+
         guard
             isAutoReplay,
             pausedReason == .waitingKeepUp,
