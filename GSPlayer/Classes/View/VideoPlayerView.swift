@@ -363,8 +363,16 @@ private extension VideoPlayerView {
     
     @objc func playerItemDidReachEnd(notification: Notification) {
 
-        if let item = notification.object as? AVPlayerItem, let url = item.url {
-          playToEndTime?(url)
+        if let item = notification.object as? AVPlayerItem {
+          var url = item.url
+          if url == nil {
+            if let urlAsset = item.asset as? AVURLAsset {
+              url = urlAsset.url
+            }
+          }
+          if url != nil {
+            playToEndTime?(url!)
+          }
         }
 
         guard
