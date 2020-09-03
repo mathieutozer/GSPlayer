@@ -222,13 +222,7 @@ public class VideoPlayerView: UIView {
     open func seek(to time: CMTime, toleranceBefore: CMTime, toleranceAfter: CMTime, completion: @escaping (Bool) -> Void) {
         player?.seek(to: time, toleranceBefore: toleranceBefore, toleranceAfter: toleranceAfter, completionHandler: completion)
     }
-    
-    /// Requests invocation of a block when specified times are traversed during normal playback.
-    @discardableResult
-    open func addBoundaryTimeObserver(forTimes times: [CMTime], queue: DispatchQueue? = nil, using: @escaping () -> Void) -> Any? {
-        return player?.addBoundaryTimeObserver(forTimes: times.map { NSValue(time: $0) }, queue: queue, using: using)
-    }
-    
+
     /// Requests invocation of a block during playback to report changing time.
     @discardableResult
     open func addPeriodicTimeObserver(forInterval interval: CMTime, queue: DispatchQueue? = nil, using: @escaping (CMTime) -> Void) -> Any? {
@@ -239,6 +233,15 @@ public class VideoPlayerView: UIView {
     open func removeTimeObserver(_ observer: Any) {
         player?.removeTimeObserver(observer)
     }
+}
+
+extension VideoPlayerView {
+  /// Requests invocation of a block when specified times are traversed during normal playback.
+  @discardableResult
+  open func addBoundaryTimeObserver(forTimes times: [CMTime], queue: DispatchQueue? = nil, using: @escaping () -> Void) -> Any? {
+      return player?.addBoundaryTimeObserver(forTimes: times.map { NSValue(time: $0) }, queue: queue, using: using)
+  }
+  
 }
 
 public extension VideoPlayerView {
