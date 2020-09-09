@@ -313,7 +313,7 @@ private extension VideoPlayerView {
             case .paused:
                 guard !self.isReplay else { break }
                 self.state = .paused(playProgress: self.playProgress, bufferProgress: self.bufferProgress)
-                if self.pausedReason == .waitingKeepUp { player.play() }
+                if self.playProgress < 1 && self.pausedReason == .waitingKeepUp { player.play() }
             case .waitingToPlayAtSpecifiedRate:
                 break
             case .playing:
